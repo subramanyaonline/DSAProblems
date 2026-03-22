@@ -1,23 +1,35 @@
 class Solution {
 public:
-    bool checkValid(vector<vector<int>>&matrix){
-        int n = matrix.size() ;
-        //finding sum of row and col would not work as 2 2 2 2 in 2x2 matrix. 
-        unordered_set<int> s; 
-        for(int i = 1 ;i<=n;i++) s.insert(i) ;
-        
-        for(int i=0;i<n;i++){
-            unordered_set<int> rowset ;
-            unordered_set<int> colset ;
-            for(int j=0;j<n;j++){
-                rowset.insert(matrix[i][j]) ;
-                colset.insert(matrix[j][i]) ;
-            }
-            if(rowset != s) return false ; 
-            if(colset != s) return false ;
-        }
+    bool checkValid(vector<vector<int>>&m){
+       // both xor sum or normal sum or row and column doesnot work . 
 
-        return true ; 
+    int n = m.size();
+    for (int i = 0; i < m.size(); ++i) {
+        bitset<101> row, col;
+        for (int j = 0; j <  m.size(); ++j)
+            row[m[i][j]] = col[m[j][i]] = true;
+        if (min(row.count(), col.count()) <  m.size())
+            return false;
+    }
+    return true;
+
+        // int n = matrix.size() ;
+        // //finding sum of row and col would not work as 2 2 2 2 in 2x2 matrix. 
+        // unordered_set<int> s; 
+        // for(int i = 1 ;i<=n;i++) s.insert(i) ;
+        
+        // for(int i=0;i<n;i++){
+        //     unordered_set<int> rowset ;
+        //     unordered_set<int> colset ;
+        //     for(int j=0;j<n;j++){
+        //         rowset.insert(matrix[i][j]) ;
+        //         colset.insert(matrix[j][i]) ;
+        //     }
+        //     if(rowset != s) return false ; 
+        //     if(colset != s) return false ;
+        // }
+
+        // return true ; 
     }  
 };
 
