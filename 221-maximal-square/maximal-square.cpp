@@ -26,7 +26,6 @@ public:
                     dp[i][j] = minn ;
                     continue ;
                 }
-
                 dp[i][j]=minn+1 ;
             }
         }
@@ -35,7 +34,6 @@ public:
             for(int j=0;j<dp[0].size();j++){
                 maxsqlen = max(maxsqlen,dp[i][j]) ;
             }
-            cout<<endl;
         }
             
         return maxsqlen*maxsqlen ;
