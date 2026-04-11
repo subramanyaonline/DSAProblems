@@ -25,7 +25,8 @@ public:
     }
 
     bool isequal(vector<int> &pfreq, vector<int> &sfreq){
-        for(int i=0;i<26;i++) if(pfreq[i]!=sfreq[i]) return false ;
-        return true ;
+        return pfreq == sfreq ;
+        // for(int i=0;i<26;i++) if(pfreq[i]!=sfreq[i]) return false ;
+        // return true ;
     }
 };
