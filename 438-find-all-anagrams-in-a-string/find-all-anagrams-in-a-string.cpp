@@ -3,6 +3,7 @@ public:
     vector<int> findAnagrams(string s, string p) {
         if(p.size()>s.size()) return {} ;
 
+        //you can also use map instead of array. i used ascii array 
         vector<int> pfreq(26,0) ;
         for(char c : p) pfreq[c-'a']++ ;
 
@@ -13,6 +14,7 @@ public:
         vector<int> ans ;
         if(isequal(pfreq,sfreq)) ans.push_back(0) ;
 
+        //starting from the next pos of base window. 
         for(int i=p.size();i<s.size();i++){
             sfreq[s[i] - 'a']++;
             sfreq[ s[i-p.size()] - 'a']-- ;
