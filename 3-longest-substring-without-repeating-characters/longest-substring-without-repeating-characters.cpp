@@ -5,9 +5,10 @@ public:
         unordered_set<char> us ; 
         int l=0,r=0 ;
         while(r<s.size()){
-            if(!us.contains(s[r])){
+            int curlen = r-l+1 ;
+            if(!us.contains(s[r]) /*|| curlen<=maxlen*/){
                 us.insert(s[r]); 
-                maxlen = max(maxlen, r-l+1);
+                maxlen = max(maxlen, curlen);
                 r++ ;              
             }
             else{
