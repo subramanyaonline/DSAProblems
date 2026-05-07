@@ -12,8 +12,9 @@ public:
         for(int i=0;i<s.size();i++){
             maxfreq = 0 ;
             maxchar = prevchar ;
+            //could have priority queue instead of this, to get the optmial solution
             for(int j=0;j<26;j++){
-                if(maxfreq<freq[j] && j != prevchar-'a'){
+                if(maxfreq<freq[j] && (j+'a') != prevchar){
                     maxfreq = freq[j] ;
                     maxchar = j + 'a';
                 }
