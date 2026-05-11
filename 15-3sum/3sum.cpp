@@ -5,6 +5,22 @@ public:
         vector<vector<int>> v ;
 
         sort(nums.begin(),nums.end()) ;
+        for(int i=0;i<len;i++){
+            int left = i+1 , right = nums.size()-1 ;
+            int localTarget = 0 - nums[i] ; 
+            while(left<right){
+                if(nums[left]+nums[right] == localTarget && notFound(nums[i],nums[left],nums[right],v)){
+
+                    v.push_back({nums[i],nums[left],nums[right]}) ;
+                    left++;
+                } 
+                else if(nums[left]+nums[right]<localTarget)     left++;
+                else right--;
+            }
+        }
+        return v ; 
+
+
         for(int i=0; i<len; i++){
             for(int j=i+1;j<len;j++){
 
