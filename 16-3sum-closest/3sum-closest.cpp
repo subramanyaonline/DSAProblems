@@ -3,7 +3,7 @@ public:
     int threeSumClosest(vector<int>& nums, int target) {
 
         sort(nums.begin(),nums.end()) ;
-        
+
         int closestSum = 1000000001 ; //int max might overflow when closestSum-target(if target is negative .)
 
         for(int i=0;i<nums.size()-2;i++){
@@ -13,14 +13,19 @@ public:
 
             while(left<right){  //if i=n, j=n-1, then overflow, infinite loop . 
 
-                if(abs(target-(nums[i]+nums[left]+nums[right]))<abs(closestSum-target)){
-                    closestSum = nums[i]+nums[left]+nums[right] ;
-                    cout<<"ClosestSum : "<<closestSum<<endl ;
+                int currentSum = nums[i]+nums[left]+nums[right];
+
+                if(abs(target-currentSum)<abs(closestSum-target)){
+                    closestSum = currentSum ;
                 }
 
-                if(nums[left]+nums[right]<localTarget) left++;
-                else if(nums[left]+nums[right]>localTarget) right--;
-                else return closestSum = nums[i]+nums[left]+nums[right] ;
+                if(currentSum < target) left++;
+                else if(currentSum > target) right--;
+                else return currentSum;
+                
+                // if(nums[left]+nums[right]<localTarget) left++;
+                // else if(nums[left]+nums[right]>localTarget) right--;
+                // else return closestSum = currentSum ;
             }
         }
         return closestSum ;
