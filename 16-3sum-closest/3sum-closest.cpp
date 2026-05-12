@@ -1,58 +1,28 @@
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-        sort(nums.begin(), nums.end());
 
-        int closestSum = nums[0] + nums[1] + nums[2];
+        sort(nums.begin(),nums.end()) ;
+        
+        int closestSum = 1000000001 ; //int max might overflow when closestSum-target(if target is negative .)
 
-        for(int i = 0; i < nums.size(); i++) {
-            for(int j = i + 1; j < nums.size(); j++) {
+        for(int i=0;i<nums.size()-2;i++){
 
-                int localTarget = target - nums[i] - nums[j];
+            int left = i+1 , right = nums.size()-1 ;
+            int localTarget = target - nums[i] ;
 
-                int left = j + 1;
-                int right = nums.size() - 1;
+            while(left<right){  //if i=n, j=n-1, then overflow, infinite loop . 
 
-                while(left <= right) {
-
-                    int mid = left + (right - left) / 2;
-
-                    if(abs(nums[i] + nums[j] + nums[mid] - target) <
-                       abs(closestSum - target)) {
-
-                        closestSum = nums[i] + nums[j] + nums[mid];
-                    }
-
-                    if(nums[mid] == localTarget) {
-                        return nums[i] + nums[j] + nums[mid];
-                    }
-                    else if(nums[mid] < localTarget) {
-                        left = mid + 1;
-                    }
-                    else {
-                        right = mid - 1;
-                    }
+                if(abs(target-(nums[i]+nums[left]+nums[right]))<abs(closestSum-target)){
+                    closestSum = nums[i]+nums[left]+nums[right] ;
+                    cout<<"ClosestSum : "<<closestSum<<endl ;
                 }
 
-                // check neighbors after binary search
-                if(left < nums.size()) {
-                    int sum = nums[i] + nums[j] + nums[left];
-
-                    if(abs(sum - target) < abs(closestSum - target)) {
-                        closestSum = sum;
-                    }
-                }
-
-                if(right > j) {
-                    int sum = nums[i] + nums[j] + nums[right];
-
-                    if(abs(sum - target) < abs(closestSum - target)) {
-                        closestSum = sum;
-                    }
-                }
+                if(nums[left]+nums[right]<localTarget) left++;
+                else if(nums[left]+nums[right]>localTarget) right--;
+                else return closestSum = nums[i]+nums[left]+nums[right] ;
             }
         }
-
-        return closestSum;
+        return closestSum ;
     }
 };
