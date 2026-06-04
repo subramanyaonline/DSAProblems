@@ -12,9 +12,9 @@ public:
         while(left>=0 && right<nums.size()){
             minval = min(minval,min(nums[left],nums[right]));
         maxscore = max(maxscore,(right-left+1)*minval) ; //score=(right-left+1)*minval)
-            if(left>0 && right<nums.size()-1 &&nums[left-1]>nums[right+1]) left--;
-            else if(left>0 && right<nums.size()-1 &&nums[left-1]<=nums[right+1]) right++;
-            else if(left<=0) right++; 
+            if(right==nums.size()-1) left--;
+            else if(left==0) right++;
+            else if(nums[left-1]<=nums[right+1]) right++; 
             else left--; //if(right>=nums.size()-1)
             //cout<<maxscore<<endl; 
         }
