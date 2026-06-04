@@ -16,7 +16,7 @@ public:
             else if(left>0 && right<nums.size()-1 &&nums[left-1]<=nums[right+1]) right++;
             else if(left<=0) right++; 
             else left--; //if(right>=nums.size()-1)
-            cout<<maxscore<<endl; 
+            //cout<<maxscore<<endl; 
         }
         return maxscore ; 
 
