@@ -1,1 +1,1 @@
-<h2>minimum-operations-to-sort-a-permutation Notes</h2><hr>[ Time taken: 48m 24s ]
+<h2>minimum-operations-to-sort-a-permutation Notes</h2><hr>[ Time taken: 59m 46s ]
