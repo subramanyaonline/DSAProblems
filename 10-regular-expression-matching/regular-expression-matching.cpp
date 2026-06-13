@@ -1,31 +1,30 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        //main twist is s = "ab" , p = ".*"
-        //another edge case is when the s="" , p=".* or a*" , ans - true ;
+        vector<vector<bool>> dp(s.size()+1, vector<bool>(p.size()+1,false)) ;
+        //dp[i][j] = is s with size i and p with size j are matching? if y then t else f
+        dp[0][0] = true ;
+        //if(s size is k and p size is 0 then flase)
+        //if(s size is 0 and p size is more then it depends on *)
 
-        vector<vector<int>> memo(s.size(),vector<int>(p.size(),-1)) ;
-        return recursion(s,p,s.size()-1,p.size()-1,memo) ;
-    }
+        for(int i=2;i<=p.size();i+=2){
+            if(p[i-1]=='*') dp[0][i] = true ;
+            else break; 
+        }
 
-    bool recursion(string &s, string &p, int m, int n, vector<vector<int>> &memo){
-        if(m==-1 && n==-1) return true ; 
-        if(n==-1) return false ;
-
-        if(m==-1 && p[n]=='*') return recursion(s,p,m,n-2,memo) ;
-        else if(m==-1) return false ;
-        if(memo[m][n]!=-1) return memo[m][n]; 
-
-        if(p[n]=='*' && p[n-1]=='.'){
-            return memo[m][n] = recursion(s,p,m,n-2,memo)||recursion(s,p,m-1,n,memo) /*||recursion(s,p,m-1,n-2,memo)*/ ; 
-        }else if(p[n]=='*' && p[n-1]!='.'){
-            if(s[m]==p[n-1]){
-                return memo[m][n] = recursion(s,p,m-1,n-2,memo)||recursion(s,p,m-1,n,memo) || recursion(s,p,m,n-2,memo);
-            }else{
-                return memo[m][n] = recursion(s,p,m,n-2,memo) ;
+        for(int i=1;i<=s.size();i++){
+            for(int j=1;j<=p.size();j++){
+                if(p[j-1]=='*' && p[j-2]=='.') dp[i][j] = dp[i-1][j] || dp[i][j-2] ;
+                else if(p[j-1]=='*' && p[j-2]!='.'){
+                    if(p[j-2]==s[i-1]){
+                        dp[i][j] = dp[i-1][j] || dp[i][j-2] ; 
+                    }
+                    else{dp[i][j] = dp[i][j-2] ; }
+                }
+                else if(p[j-1]=='.') dp[i][j] = dp[i-1][j-1] ;
+                else dp[i][j] = p[j-1]==s[i-1] ? dp[i-1][j-1] : false ;
             }
-        }else if(p[n]=='.') return memo[m][n] = recursion(s,p,m-1,n-1,memo) ;
-        //else  //the last term in both s and p is a alphabet. 
-        return memo[m][n] = p[n]==s[m] ? recursion(s,p,m-1,n-1,memo) : false ;     
+        }
+        return dp[s.size()][p.size()] ; 
     }
 };
