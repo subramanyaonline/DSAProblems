@@ -22,7 +22,7 @@ public:
             int secondmin = INT_MAX ;
 
             for(int j=1;j<units[0].size();j++){
-                if(firstmin>=units[i][j]){
+                if(firstmin>units[i][j]){
                     secondmin = firstmin ; 
                     firstmin = units[i][j] ; 
                     firstminidx = j ;
