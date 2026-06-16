@@ -14,7 +14,7 @@ public:
                         int x = q.front().first ;
                         int y = q.front().second ; 
                         q.pop(); 
-                        if(x<0||y<0||x>=grid.size()||y>=grid[0].size()) continue ;
+                        //if(x<0||y<0||x>=grid.size()||y>=grid[0].size()) continue ;
                         if(x<grid.size()-1 && grid[x+1][y]=='1' &&!visited[x+1][y]) {
                             q.push({x+1,y}) ;
                             visited[x+1][y] = true ;
