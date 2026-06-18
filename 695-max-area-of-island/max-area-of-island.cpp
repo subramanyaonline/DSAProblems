@@ -17,9 +17,9 @@ public:
                         int y = q.front().second ;
                         q.pop() ;
                         //you can do area++ here too. 
-                        for(int i=0;i<directions.size();i++){
-                            int nx = x + directions[i].first ;
-                            int ny = y + directions[i].second ;
+                        for(int k=0;k<directions.size();k++){
+                            int nx = x + directions[k].first ;
+                            int ny = y + directions[k].second ;
                             if(nx>=0 && nx<grid.size() && ny>=0 && ny<grid[0].size() && !visited[nx][ny] && grid[nx][ny]){
                                 q.push(make_pair(nx,ny)) ;
                                 visited[nx][ny] = true ;
