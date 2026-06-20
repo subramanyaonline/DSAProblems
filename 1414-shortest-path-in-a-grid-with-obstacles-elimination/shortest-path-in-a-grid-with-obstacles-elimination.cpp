@@ -37,11 +37,13 @@ public:
                     int dx = x + dir[i].first ; 
                     int dy = y + dir[i].second ; 
                     if(dx<m && dy<n && dx>=0 && dy>=0){
-                        int nr = r - grid[dx][dy]; // decrement only if obstacle
-                        if(nr < 0 || visited[dx][dy][nr]) continue;
-                        visited[dx][dy][nr] = true;
-                        q.push({dx, dy, nr}); 
                         
+                        int dr = r - grid[dx][dy] ; 
+                        if(dr<0) continue ;
+                        if(!visited[dx][dy][dr]){
+                            visited[dx][dy][dr] = true ;
+                            q.push({dx,dy,dr}); 
+                        }                  
                     }
                         
                 }
