@@ -23,14 +23,16 @@ public:
         while(!q.empty()){
             int src = q.front(); 
             q.pop(); 
-            ans.push_back(src) ; 
 
             for(auto dest : adjlist[src]){
                 if(!--indegree[dest])q.push(dest) ; 
             }
         }
 
-        sort(ans.begin(),ans.end()) ; 
+        for(int i=0;i<V;i++){
+            if(!indegree[i]) ans.push_back(i) ; 
+        }
+
         return ans ;
     }
 };
