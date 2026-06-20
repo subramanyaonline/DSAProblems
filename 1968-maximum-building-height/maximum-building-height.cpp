@@ -1,73 +1,27 @@
 class Solution {
 public:
-    int maxBuilding(int n, vector<vector<int>>& arr) {
-        vector<vector<int>> restrictions ; 
-        restrictions.push_back({1,0}) ; 
-        restrictions.insert(restrictions.end(),arr.begin(),arr.end()) ; 
+    int maxBuilding(int n, vector<vector<int>>& restrictions) {
+        auto r = restrictions ;
+        r.push_back({1,0}); 
+        sort(r.begin(),r.end()) ;
+        if(r[r.size()-1][0]!=n) r.push_back({n,n-1}); 
 
-        // sort(restrictions.begin(),restrictions.end(),[](const vector<int> &a, const vector<int> &b){return a[0]>b[0];}) ;
-        //sort(restrictions.begin(),restrictions.end()) ; 
-        sort(restrictions.begin(), restrictions.end(), [](const vector<int> &a, const vector<int> &b) {
-    return a[0] < b[0];
-});
-
-        if(restrictions[restrictions.size()-1][0]!=n){
-            restrictions.push_back({n,n-1}) ;
+        int m = r.size(); 
+        for(int i=1;i<m;i++){
+            r[i][1] = min(r[i][1] , r[i-1][1]+(r[i][0]-r[i-1][0])); //() to avoid int overflow 
         }
 
-        // for(int i=0;i<restrictions.size();i++){
-        //     cout<<restrictions[i][1]<<" "; 
-        // }
-        //cout<<endl;
-
-        for(int i=1;i<restrictions.size();i++){
-            int curheight = restrictions[i][1]; 
-            int prevheight = restrictions[i-1][1] ; 
-            int curidx = restrictions[i][0] ; 
-            int previdx = restrictions[i-1][0] ; 
-            if( curheight-prevheight > curidx - previdx){
-                restrictions[i][1] = prevheight + curidx - previdx ;
-            }
+        for(int i=m-2;i>=0;i--){
+            r[i][1] = min(r[i][1],r[i+1][1]+(r[i+1][0]-r[i][0])); ;
         }
 
-        // for(int i=0;i<restrictions.size();i++){
-        //     cout<<restrictions[i][1]<<" "; 
-        // }
-        // cout<<endl ;
-
-        for(int i=restrictions.size()-2;i>=0;i--){
-            int curheight = restrictions[i][1]; 
-            int prevheight = restrictions[i+1][1] ; 
-            int curidx = restrictions[i][0] ; 
-            int previdx = restrictions[i+1][0] ; 
-            if(curheight-prevheight > previdx-curidx){
-                restrictions[i][1] = prevheight + previdx - curidx  ;
-            }
+        int mh = 0 ; //maxheight 
+        for(int i=1;i<m;i++){
+            int dist = r[i][0]-r[i-1][0] ; 
+            int cmh ; //current max height 
+            cmh = (dist+r[i][1]+r[i-1][1])/2 ;
+            mh = max(cmh,mh) ; 
         }
-
-        // for(int i=0;i<restrictions.size();i++){
-        //     cout<<restrictions[i][1]<<" "; 
-        // }
-
-        int globalmaxheight = 0 ; 
-        for(int i=1;i<restrictions.size();i++){
-            int curheight = restrictions[i][1]; 
-            int prevheight = restrictions[i-1][1] ; 
-            int curidx = restrictions[i][0] ; 
-            int previdx = restrictions[i-1][0] ; 
-
-            //extra  = dist - diff / 2 ; extra + max of two bars = max height 
-
-            int maxbarheight = max(restrictions[i][1],restrictions[i-1][1]); 
-            int minbarheight = min(restrictions[i][1],restrictions[i-1][1]); 
-
-            int dist = abs(restrictions[i][0]-restrictions[i-1][0]) ; 
-            int diff = maxbarheight - minbarheight ; 
-            int extra = (dist - diff ) / 2; 
-            globalmaxheight = max(globalmaxheight, maxbarheight + extra) ;
-
-        }
-
-        return globalmaxheight ; 
+        return mh ; 
     }
 };
