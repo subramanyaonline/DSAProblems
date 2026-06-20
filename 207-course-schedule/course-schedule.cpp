@@ -1,35 +1,37 @@
 class Solution {
 public:
-
-    bool helper(vector<vector<int>> &adjlist, vector<bool> &visited){
-        unordered_set<int> path ; 
-        for(int i=0;i<adjlist.size();i++){
-            if(!dfs(adjlist,visited,i,path)) return false;
-        }
-        return true ;
-    } ;
-
-    bool dfs(vector<vector<int>> &adjlist, vector<bool> &visited, int src, unordered_set<int> &path){
-        if(path.contains(src)) return false ;
-        if(visited[src]) return true ;
-        visited[src] = true ;
-        path.insert(src) ;
-        for(int i=0;i<adjlist[src].size();i++){
-            if(!dfs(adjlist,visited,adjlist[src][i],path)) return false ;
-        }
-        path.erase(src) ;
-        return true ;
-    } ;
-
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> indegree(numCourses) ;
         vector<vector<int>> adjlist(numCourses) ;
+        queue<int> q ; 
+        vector<bool> visited(numCourses) ; 
 
         for(int i=0;i<prerequisites.size();i++){
-            adjlist[prerequisites[i][1]].push_back(prerequisites[i][0]) ;
+            indegree[prerequisites[i][1]]++; 
+            adjlist[prerequisites[i][0]].push_back(prerequisites[i][1]); 
         }
 
-        vector<bool> visited(numCourses) ;
+        for(int i=0;i<indegree.size();i++){
+            if(!indegree[i]){
+                q.push(i) ;
+                visited[i] = true ; 
+            }  
+        }
 
-        return helper(adjlist,visited) ;
+        while(!q.empty()){
+            int src = q.front(); 
+            q.pop() ; 
+            for(int dest : adjlist[src]){
+                if(!--indegree[dest]){
+                    q.push(dest) ; //if 0 then push 
+                    visited[dest] = true ;
+                }
+            }
+        }
+
+        for(int i=0;i<numCourses;i++){
+            if(indegree[i]) return false ;
+        }
+        return true ;
     }
 };
