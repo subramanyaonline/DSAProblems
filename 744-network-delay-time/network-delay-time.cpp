@@ -13,21 +13,22 @@ public:
             adjlist[from-1].push_back({to-1,t});
         }
 
-        queue<int> q ; //pair stores node and weight . 
+        priority_queue<pair<int,int>> pq ; //pair stores node and weight . 
         
-        q.push(k-1) ;
+        pq.push({INF,k-1}) ; //first - how much it changes , second - node
         time[k-1] = 0 ;  
 
-        while(!q.empty()){
-            int src = q.front(); //to make the src 0 indexed. it is 1 indexed in the question . 
-            q.pop(); 
+        while(!pq.empty()){
+            int src = pq.top().second; //to make the src 0 indexed. it is 1 indexed in the question . 
+            
+            pq.pop(); 
              
 
             for(auto p : adjlist[src]){
                 int dest = p.first; 
                 int wOrTime = p.second; 
                 if(time[src]+wOrTime  < time[dest]){
-                    q.push(dest) ; 
+                    pq.push({time[dest]-time[src]+wOrTime, dest}) ; 
                     time[dest] = time[src]+wOrTime  ; 
                 }
             }
