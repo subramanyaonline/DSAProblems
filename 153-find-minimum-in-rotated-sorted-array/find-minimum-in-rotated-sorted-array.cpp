@@ -6,11 +6,11 @@ public:
         if(nums[left]<nums[right]) return nums[left]  ; 
 
         int middle ; 
-        while(left+1<right){
+        while(left<right){
             middle = (right+left)/2 ; 
             if(nums[middle]<nums[right]) right = middle ; 
-            else left = middle ; 
+            else left = middle+1 ; 
         }
-        return min(nums[left],nums[right]) ; 
+        return nums[left] ; 
     }
 };
