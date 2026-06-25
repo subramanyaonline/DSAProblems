@@ -18,7 +18,7 @@ public:
             if(stops==k+1) continue ; 
             if(minCost[src][stops]<cost) continue ; 
 
-            for(auto p : graph[src]){
+            for(const auto& p : graph[src]){
                 int curcost = p.second ; 
                 int dest = p.first ; 
                 if(minCost[dest][stops+1]>cost+curcost){
