@@ -46,7 +46,7 @@ public:
                 ++extraEdges ; 
             }
         }
-        cout<<components<<" "<<extraEdges<<endl ;
+        //cout<<components<<" "<<extraEdges<<endl ;
         return components-1<=extraEdges ? components-1 : -1 ; 
     }
 };
