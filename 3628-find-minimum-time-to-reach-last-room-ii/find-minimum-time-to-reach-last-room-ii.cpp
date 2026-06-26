@@ -14,6 +14,7 @@ public:
             auto [currT,x,y,step] = q.top();
             q.pop(); 
             if(currT>minCost[x][y]) continue ; //stale entry --> other nodes have optimised mincost[][] , so this doesnot mean anything .
+            if(x==m-1 && y==n-1) return currT ; 
 
             for(int i=0;i<4;i++){
                 int dx = x + dir[i].first ; 
