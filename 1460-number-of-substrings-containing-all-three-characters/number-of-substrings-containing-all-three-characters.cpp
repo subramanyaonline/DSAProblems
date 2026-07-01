@@ -1,21 +1,20 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        int l = 0 , r= 0 , len = s.size() ; 
-        unordered_map<char,int> freq ; 
+        int len = s.size() ;
+        int lastOccurance[3] = {-1,-1,-1}  ;
         int count = 0 ; 
 
-        while(r<len){
-            freq[s[r]]++; 
-            
-            while(freq.size()==3){
-                count += len - r ; 
-                freq[s[l]]--; 
-                if(freq[s[l]]==0) freq.erase(s[l]) ; 
-                l++ ; 
-            }
+        //we are couting every valid substring ending at i.
+        for(int i=0;i<len;i++){
+            lastOccurance[s[i]-'a'] = i ; 
 
-            r++ ; 
+            int startPoint = 1e5; 
+            for(int j=0;j<3;j++){
+                startPoint = min(startPoint,lastOccurance[j]) ; 
+            }
+            if(startPoint<0) continue ; 
+            count += startPoint+1 ; 
         }
         return count ; 
     }
