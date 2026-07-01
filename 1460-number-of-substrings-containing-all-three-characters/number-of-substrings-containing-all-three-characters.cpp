@@ -9,10 +9,7 @@ public:
         for(int i=0;i<len;i++){
             lastOccurance[s[i]-'a'] = i ; 
 
-            int startPoint = 1e5; 
-            for(int j=0;j<3;j++){
-                startPoint = min(startPoint,lastOccurance[j]) ; 
-            }
+            int startPoint = min({lastOccurance[0],lastOccurance[1],lastOccurance[2]});
             if(startPoint<0) continue ; 
             count += startPoint+1 ; 
         }
