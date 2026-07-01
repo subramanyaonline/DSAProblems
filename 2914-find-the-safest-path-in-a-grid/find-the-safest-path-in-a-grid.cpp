@@ -1,6 +1,7 @@
 class Solution {
 public:
     int maximumSafenessFactor(vector<vector<int>>& grid) {
+
         int n = grid.size(); 
         vector<vector<int>> dp(n+2,vector<int>(n+2,800)) ; //stores minlen btw cells and theifcells
 
@@ -10,20 +11,12 @@ public:
                 else dp[i][j] = min(dp[i-1][j],dp[i][j-1])+1 ; 
             }
         }
-
         for(int i=n;i>=1;i--){
             for(int j=n;j>=1;j--){
                 if(grid[i-1][j-1]) dp[i][j] = 0 ; 
                 else dp[i][j] = min(dp[i][j],min(dp[i+1][j],dp[i][j+1])+1) ; 
             }
         }
-
-        // for(int i=1;i<=n;i++){
-        //     for(int j=1;j<=n;j++){
-        //         cout<<dp[i][j]<<" "; 
-        //     }
-        //     cout<<endl ;
-        // }
 
         priority_queue<tuple<int,int,int>> pq ; //
         vector<pair<int,int>> dir = {{1,0},{-1,0},{0,1},{0,-1}} ; 
@@ -44,17 +37,17 @@ public:
                 int dy = dir[i].second + y ; 
 
                 if(dx<n && dy<n && dx>=0 && dy>=0){
+                    
                     int currSafeness = min(dp[dx+1][dy+1],safeness) ;
                     if(currSafeness>maxDist[dx][dy]){
-                        //cout<<"dx: "<<dx<<"   "<<"dy:"<<dy<<"   //cursafeness"<<currSafeness<< endl ; 
                         pq.push({currSafeness,dx,dy}) ; 
                         maxDist[dx][dy] = currSafeness ;
-                    }                   
+                    } 
+
                 }
 
             }
         }
-
         return maxDist[n-1][n-1] ; 
     }
 };
