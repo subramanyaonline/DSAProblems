@@ -1,7 +1,7 @@
 class Solution {
 public:
     int maximumSafenessFactor(vector<vector<int>>& grid) {
-
+        ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
         int n = grid.size(); 
         vector<vector<int>> dp(n+2,vector<int>(n+2,800)) ; //stores minlen btw cells and theifcells
 
