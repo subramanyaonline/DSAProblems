@@ -17,10 +17,10 @@ public:
             int root1 = find(u) ; 
             int root2 = find(v) ; 
             if(root1==root2) return false ; 
-            if(rank[u]==rank[v]){
+            if(rank[root1]==rank[root2]){
                 rank[root1]++ ; 
                 parent[root2] = root1 ; 
-            }else if(rank[u]>rank[v]){
+            }else if(rank[root1]>rank[root2]){
                 parent[root2] = root1 ; 
             }else {
                 parent[root1] = root2 ; 
