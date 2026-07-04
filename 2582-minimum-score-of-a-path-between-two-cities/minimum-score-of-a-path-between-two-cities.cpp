@@ -4,7 +4,7 @@ public:
         
         int V = n ;
         vector<vector<pair<int,int>>> graph(V+1) ; 
-        for(auto road : roads){
+        for(auto& road : roads){
             int node1 = road[0] ; 
             int node2 = road[1] ; 
             int cost = road[2] ; 
@@ -23,14 +23,14 @@ public:
             if(minScore[node]<pathscore) continue ; 
            // if(node == V) return pathscore ; 
 
-            for(auto outgoingEdge : graph[node]){
+            for(auto& outgoingEdge : graph[node]){
                 int to = outgoingEdge.first; 
-                cout<<outgoingEdge.second<<endl ;
+                //cout<<outgoingEdge.second<<endl ;
                 int curscore = min(outgoingEdge.second , pathscore) ; 
                 //cout<<curscore<<endl ;
                 
                 if(minScore[to]>curscore){
-                    cout<<curscore<<" pushed"<<endl ;
+                    //cout<<curscore<<" pushed"<<endl ;
                     pq.push({curscore,to}) ; 
                     minScore[to] = curscore ; 
                 }
