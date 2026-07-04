@@ -1,42 +1,50 @@
 class Solution {
 public:
-    int minScore(int n, vector<vector<int>>& roads) {
-        
-        int V = n ;
-        vector<vector<pair<int,int>>> graph(V+1) ; 
-        for(auto& road : roads){
-            int node1 = road[0] ; 
-            int node2 = road[1] ; 
-            int cost = road[2] ; 
-            graph[node1].push_back({node2,cost}) ;
-            graph[node2].push_back({node1,cost}) ;  
+    class DSU {
+        vector<int> parent ; 
+        vector<int> rank ; 
+        public : 
+        DSU(int n){
+            parent.resize(n+1,0) ; 
+            for(int i=0;i<=n;i++) parent[i] = i ; 
+            rank.resize(n+1,0) ; 
         }
-         
-        vector<int> minScore(V+1,INT_MAX) ; 
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq ; //score of cur path , node   
-        pq.push({INT_MAX,1}) ; 
-
-        while(!pq.empty()){
-            int node = pq.top().second ; 
-            int pathscore = pq.top().first ; 
-            pq.pop() ; 
-            if(minScore[node]<pathscore) continue ; 
-           // if(node == V) return pathscore ; 
-
-            for(auto& outgoingEdge : graph[node]){
-                int to = outgoingEdge.first; 
-                //cout<<outgoingEdge.second<<endl ;
-                int curscore = min(outgoingEdge.second , pathscore) ; 
-                //cout<<curscore<<endl ;
-                
-                if(minScore[to]>curscore){
-                    //cout<<curscore<<" pushed"<<endl ;
-                    pq.push({curscore,to}) ; 
-                    minScore[to] = curscore ; 
-                }
+        int find(int u ){
+            if(parent[u]==u) return u ; 
+            return parent[u] = find(parent[u]) ; 
+        }
+        bool unite(int u , int v ){
+            int root1 = find(u) ; 
+            int root2 = find(v) ; 
+            if(root1==root2) return false ; 
+            if(rank[u]==rank[v]){
+                rank[root1]++ ; 
+                parent[root2] = root1 ; 
+            }else if(rank[u]>rank[v]){
+                parent[root2] = root1 ; 
+            }else {
+                parent[root1] = root2 ; 
             }
+            return true ; 
         }
-        return minScore[V] ; 
+    }; 
 
+    int minScore(int n, vector<vector<int>>& roads) {
+        vector<int> minEdge(n+1,1e4+1) ; 
+        DSU dsu(n) ; 
+        for(auto road : roads){
+            int u = road[0];  
+            int v = road[1] ; 
+            int d = road[2] ; 
+            dsu.unite(u,v) ; 
+            minEdge[u] = minEdge[v] = min(minEdge[u],min(minEdge[v],d)) ; 
+        }
+
+        int globalMin = INT_MAX ; 
+        for(int i=1;i<n+1;i++){
+            if(dsu.find(i) == dsu.find(n)) globalMin = min(globalMin,minEdge[i]) ; 
+        }
+
+        return globalMin ; 
     }
 };
