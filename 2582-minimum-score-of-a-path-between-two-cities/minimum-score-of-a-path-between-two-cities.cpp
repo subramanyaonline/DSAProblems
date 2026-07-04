@@ -32,7 +32,7 @@ public:
     int minScore(int n, vector<vector<int>>& roads) {
         vector<int> minEdge(n+1,1e4+1) ; 
         DSU dsu(n) ; 
-        for(auto road : roads){
+        for(auto& road : roads){
             int u = road[0];  
             int v = road[1] ; 
             int d = road[2] ; 
