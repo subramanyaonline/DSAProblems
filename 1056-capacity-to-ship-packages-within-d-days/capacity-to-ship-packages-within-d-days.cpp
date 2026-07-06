@@ -8,7 +8,7 @@ public:
             sum += weights[i] ; 
         }
 
-        int left = maxele ;  
+        int left = max(maxele,sum/days) ;  
         int right = sum ; 
 
         while(left<right){
