@@ -22,7 +22,7 @@ public:
                     D++; 
                     daysum = weights[i] ; 
                 }
-                //if(D>days) break ;                
+                if(D>days) break ;                
             }
 
             if(D>days) left = mid+1 ; 
