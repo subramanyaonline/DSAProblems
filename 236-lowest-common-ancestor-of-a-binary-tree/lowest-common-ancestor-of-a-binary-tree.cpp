@@ -13,9 +13,10 @@ public:
         if(!root) return false ; 
         path.push_back(root) ; 
         if(node == root) return true ; 
-        bool foundOnLeft = findpath(root->left , node, path) ; 
-        bool foundOnRight = findpath(root->right,node,path) ; 
-        if(foundOnRight || foundOnLeft) return true ; 
+        
+        if(findpath(root->left , node, path)) return true ; 
+        if(findpath(root->right,node,path)) return true ; 
+        
         path.pop_back() ; 
         return false ; 
     }
