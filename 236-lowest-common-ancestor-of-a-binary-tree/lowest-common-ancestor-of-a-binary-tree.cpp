@@ -9,7 +9,7 @@
  */
 class Solution {
 public:
-    TreeNode* find(TreeNode* root, TreeNode* p , TreeNode* q){
+    TreeNode* find(TreeNode* &root, TreeNode* &p , TreeNode* &q){
         if(root==p) return p ; 
         if(root==q) return q ; 
         if(!root) return nullptr ; 
