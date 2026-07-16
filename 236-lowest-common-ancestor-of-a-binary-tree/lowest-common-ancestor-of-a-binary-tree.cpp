@@ -9,32 +9,19 @@
  */
 class Solution {
 public:
-    bool findpath(TreeNode* root, TreeNode* node, vector<TreeNode*> &path){
-        if(!root) return false ; 
-        path.push_back(root) ; 
-        if(node == root) return true ; 
-        
-        if(findpath(root->left , node, path)) return true ; 
-        if(findpath(root->right,node,path)) return true ; 
-        
-        path.pop_back() ; 
-        return false ; 
+    TreeNode* find(TreeNode* root, TreeNode* p , TreeNode* q){
+        if(root==p) return p ; 
+        if(root==q) return q ; 
+        if(!root) return nullptr ; 
+        TreeNode* left = find(root->left,p,q) ; 
+        TreeNode* right = find(root->right,p,q) ; 
+        if(left && right) return root ; 
+        else if(left) return left ; 
+        else if(right) return right ; 
+        else return nullptr ; 
     }
 
-
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> pathp ; 
-        vector<TreeNode*> pathq ; 
-        findpath(root,p,pathp) ; 
-        findpath(root,q,pathq) ; 
-        
-        cout<<pathp.size(); 
-        cout<<pathq.size() ; 
-        //last common node in the paths of both , will be the lowest common ancestor
-        int i; 
-        for(i=0; i<min(pathq.size(),pathp.size()) ; ++i){
-            if(pathp[i]!=pathq[i]) break ; 
-        }
-        return pathp[i-1] ; 
+        return find(root,p,q) ; 
     }
 };
