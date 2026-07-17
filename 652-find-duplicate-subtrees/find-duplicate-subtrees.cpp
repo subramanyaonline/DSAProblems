@@ -12,7 +12,7 @@
 
 class Solution {
 public:
-    string dft(TreeNode* root, vector<TreeNode*> &duplicate , unordered_map<string,int> &map){
+    string dft(TreeNode* &root, vector<TreeNode*> &duplicate , unordered_map<string,int> &map){
         if(!root) return "#" ; 
         string str ; 
         str += dft(root->left,duplicate,map) ; 
