@@ -24,6 +24,7 @@ public:
                     splitsum = nums[i] ; 
                     splits++ ; 
                 }
+                if(splits>k) break ;
             }
 
             if(splits<=k){
