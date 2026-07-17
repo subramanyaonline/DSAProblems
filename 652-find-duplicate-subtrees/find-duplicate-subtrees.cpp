@@ -12,11 +12,11 @@
 
 class Solution {
 public:
-    string dft(TreeNode* &root, vector<TreeNode*> &duplicate , unordered_map<string,int> &map){
+    string dft(TreeNode* root, vector<TreeNode*> &duplicate , unordered_map<string,int> &map){
         if(!root) return "#" ; 
         string str ; 
         str = dft(root->left,duplicate,map) + ',' + dft(root->right,duplicate,map) + ',' + to_string(root->val) ; 
-        
+
         map[str]++ ; 
         if(map[str]==2){
             duplicate.push_back(root) ; 
