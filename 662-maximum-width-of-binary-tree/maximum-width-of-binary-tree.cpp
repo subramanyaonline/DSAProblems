@@ -17,12 +17,12 @@ public:
         long long maxwidth = 1 ; 
 
         while(!q.empty()){
-            long long size = q.size() ; 
+            long long levelSize = q.size() ; 
             long long  start = q.front().second ; //first ele index in a level
             long long end= q.back().second ; //last ele index in a level
             maxwidth = max(maxwidth, end-start+1);
 
-            for(int i=0;i<size;i++){
+            for(int i=0;i<levelSize;i++){
                 auto p = q.front() ; 
                 q.pop() ; 
                 TreeNode* node = p.first ;
