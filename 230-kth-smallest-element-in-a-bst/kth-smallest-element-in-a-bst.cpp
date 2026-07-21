@@ -6,22 +6,27 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right)
+ *         : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
 public:
-    void kthSmallest(TreeNode* root, vector<int> &ans){
-        if(!root) return ; 
-        kthSmallest(root->left,ans) ; 
-        ans.push_back(root->val) ; 
-        kthSmallest(root->right, ans) ; 
+    int helper(TreeNode* root, int k, int &count) {
+        if (!root) return -1;
+
+        int left = helper(root->left, k, count);
+        if (left != -1) return left;
+
+        count++;
+        if (count == k) return root->val;
+
+        return helper(root->right, k, count);
     }
 
     int kthSmallest(TreeNode* root, int k) {
-        vector<int> inorder ; 
-        kthSmallest(root,inorder) ; 
-        //for(int ele : inorder) cout<<ele<< " " ; 
-        return inorder[k-1] ; 
+        int count = 0;
+        return helper(root, k, count);
     }
 };
