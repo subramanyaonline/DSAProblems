@@ -47,7 +47,7 @@ public:
     }
 
     int maxSumBST(TreeNode* root) {
-        Node ans = maxsum(root) ; 
-        return ans.maxSum ; 
+        return maxsum(root).maxSum ; 
+        //return ans.maxSum ; 
     }
 };
