@@ -13,6 +13,9 @@
 
 class Solution {
 public:
+    //you can also pass one ans variable , which is a reference so that you dont need to return -1 every time and just return void. if count==k , ans = root->val , thats it . 
+    //helper(root,k,&count,&ans)
+    
     int helper(TreeNode* root, int k, int &count) {
         if (!root) return -1;
 
