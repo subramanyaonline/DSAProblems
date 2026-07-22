@@ -1,6 +1,7 @@
 class Solution {
 public:
     int maxActiveSectionsAfterTrade(string s) {
+        
         int n = s.size() ; 
         int totalones = 0 ; 
         for(int i=0;i<n;++i) if(s[i]=='1')   totalones++ ; 
