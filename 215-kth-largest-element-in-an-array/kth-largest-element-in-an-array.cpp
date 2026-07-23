@@ -5,7 +5,13 @@ public:
         int targetpos = k-1 ; 
         
         while(left<=right){ //because we are returning inside while, <=, only breaks once found the pos which lies in the range left-right for sure . 
-            int pivot = nums[right] ; 
+            
+            //to make the worst case very highly unlikely . 
+            int pivotIndex = left + rand() % (right - left + 1);
+            swap(nums[pivotIndex], nums[right]);
+            int pivot = nums[right];
+
+            //int pivot = nums[right] ; 
             int p = left ; 
 
             for(int i=left;i<right;i++){ //we are finding the correct postion for pivot. 
