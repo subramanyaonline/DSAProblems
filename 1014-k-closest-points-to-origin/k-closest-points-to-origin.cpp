@@ -1,24 +1,34 @@
+class Dist{
+    public: 
+    int index ; 
+    int dist ;
+
+    Dist(int i , int d){
+        index = i ; 
+        dist = d ; 
+    }
+    bool operator < (const Dist &obj) const {
+        return this->dist > obj.dist ; 
+    }
+};
+
+
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        vector<pair<double,int>> vec(points.size()) ; 
+        vector<Dist> vec ; 
 
-        for(int i=0;i<points.size();i++){
-            int x = points[i][0] ; 
-            int y = points[i][1] ; 
-            double dist = sqrt(x*x + y*y) ; 
-            int index = i ; 
-            vec[i] = {dist,index} ; 
+        for(int i=0;i<points.size();++i){
+            int dist = points[i][0]*points[i][0] + points[i][1] * points[i][1] ; 
+            vec.push_back(Dist(i,dist)) ; 
         }
 
-        sort(vec.begin(),vec.end()) ; 
-
+        priority_queue<Dist> pq(vec.begin(),vec.end()) ; 
         vector<vector<int>> ans ; 
-        for(int i=0;i<k;i++){
-            int index = vec[i].second ; //index of pairs in original array
-            ans.push_back(points[index]) ; 
+        for(int i=0;i<k;++i){
+            ans.push_back(points[pq.top().index]) ; 
+            pq.pop() ; 
         }
-
         return ans ; 
     }
 };
