@@ -10,29 +10,22 @@
 
 class Solution {
 public:
-    void find(TreeNode* root, TreeNode* target, vector<TreeNode*> &path){      
-        path.push_back(root) ; 
-        if(root==target) return ; 
-        if(target->val<root->val)
-            find(root->left,target,path) ;
-        else
-            find(root->right,target,path) ; 
+    TreeNode* findLCA(TreeNode* root, TreeNode* leftTarget,TreeNode* rightTarget){
+        if(root==leftTarget || root==rightTarget) return root ; 
+        cout<<root->val<<" "; 
+        if(leftTarget->val<root->val && rightTarget->val>root->val) return root ; 
+        if(rightTarget->val < root->val) return findLCA(root->left,leftTarget,rightTarget) ; 
+        return findLCA(root->right,leftTarget,rightTarget) ; 
     }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> vecpath1 ; 
-        vector<TreeNode*> vecpath2 ; 
-        find(root,p,vecpath1) ; 
-        find(root,q,vecpath2) ; 
-
-        TreeNode* LCA ; 
-        for(int i=0;i<min(vecpath1.size(),vecpath2.size());++i){
-            cout<<vecpath1[i]->val<<" "<<vecpath2[i]->val<<endl ;
-
-            if(vecpath1[i]==vecpath2[i]) LCA = vecpath1[i] ;             
-            else break ;
-
+        TreeNode* leftTarget ; 
+        TreeNode* rightTarget ; 
+        if(p->val<q->val){
+            leftTarget = p ; rightTarget = q ; 
+        }else{
+            leftTarget = q ; rightTarget = p ; 
         }
-        return LCA ; 
+        return findLCA(root,leftTarget,rightTarget) ; 
     }
 };
