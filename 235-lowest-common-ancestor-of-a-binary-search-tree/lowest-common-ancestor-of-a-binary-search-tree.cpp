@@ -12,7 +12,7 @@ class Solution {
 public:
     TreeNode* findLCA(TreeNode* root, TreeNode* leftTarget,TreeNode* rightTarget){
         if(root==leftTarget || root==rightTarget) return root ; 
-        cout<<root->val<<" "; 
+        //cout<<root->val<<" "; 
         if(leftTarget->val<root->val && rightTarget->val>root->val) return root ; 
         if(rightTarget->val < root->val) return findLCA(root->left,leftTarget,rightTarget) ; 
         return findLCA(root->right,leftTarget,rightTarget) ; 
