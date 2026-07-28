@@ -10,15 +10,13 @@
 
 class Solution {
 public:
-    bool find(TreeNode* root, TreeNode* target, vector<TreeNode*> &path){
-        if(!root) return false; 
-        
+    void find(TreeNode* root, TreeNode* target, vector<TreeNode*> &path){      
         path.push_back(root) ; 
-        if(root==target) return true ; 
-        if(find(root->left,target,path)) return true ; 
-        if(find(root->right,target,path)) return true ; 
-        path.pop_back() ; 
-        return false ;
+        if(root==target) return ; 
+        if(target->val<root->val)
+            find(root->left,target,path) ;
+        else
+            find(root->right,target,path) ; 
     }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -29,8 +27,11 @@ public:
 
         TreeNode* LCA ; 
         for(int i=0;i<min(vecpath1.size(),vecpath2.size());++i){
-            if(vecpath1[i]==vecpath2[i]) LCA = vecpath1[i] ; 
+            cout<<vecpath1[i]->val<<" "<<vecpath2[i]->val<<endl ;
+
+            if(vecpath1[i]==vecpath2[i]) LCA = vecpath1[i] ;             
             else break ;
+
         }
         return LCA ; 
     }
