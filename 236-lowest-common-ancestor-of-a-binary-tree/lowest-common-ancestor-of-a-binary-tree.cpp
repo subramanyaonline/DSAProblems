@@ -9,19 +9,16 @@
  */
 class Solution {
 public:
-    TreeNode* find(TreeNode* &root, TreeNode* &p , TreeNode* &q){
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return nullptr ; 
         if(root==p) return p ; 
         if(root==q) return q ; 
-        if(!root) return nullptr ; 
-        TreeNode* left = find(root->left,p,q) ; 
-        TreeNode* right = find(root->right,p,q) ; 
-        if(left && right) return root ; 
-        else if(left) return left ; 
-        else if(right) return right ; 
-        else return nullptr ; 
-    }
 
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return find(root,p,q) ; 
+        TreeNode* left = lowestCommonAncestor(root->left,p,q) ; 
+        TreeNode* right = lowestCommonAncestor(root->right,p,q) ; 
+        if(left&&right) return root ; 
+        if(left) return left ; 
+        if(right) return right ; 
+        return nullptr ; 
     }
 };
