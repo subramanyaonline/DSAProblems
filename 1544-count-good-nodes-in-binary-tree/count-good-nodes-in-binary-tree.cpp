@@ -11,30 +11,20 @@
  */
 class Solution {
 public:
-    int goodNodes(TreeNode* root, stack<pair<int,int>> &st, int level) {
+    int goodNodes(TreeNode* root, int prevmax) {
         if(!root) return 0 ; 
-        if(!st.empty() && st.top().first<root->val){
-            st.push({root->val,level}) ; 
-        }
-        else if(st.empty()) st.push({root->val,level}) ; 
+        int nextmax = max(root->val,prevmax) ; 
 
-        int left = goodNodes(root->left,st,level+1) ; 
-        int right = goodNodes(root->right,st,level+1) ; 
-        
-        int retval = 0 ; 
+        int left = goodNodes(root->left,nextmax) ; 
+        int right = goodNodes(root->right,nextmax) ; 
+        if(root->val>=prevmax) 
+            return  left + right + 1 ; 
 
-        if(!st.empty() && st.top().second==level){
-            st.pop() ; 
-            return left + right + 1 ; 
-        }
-        else if(!st.empty() && st.top().first==root->val){
-            return left + right + 1 ; 
-        }
         return left + right ; 
+
     }
 
     int goodNodes(TreeNode* root) {
-        stack<pair<int,int>> st ; 
-        return goodNodes(root,st,0) ;    
+        return goodNodes(root,-1e4) ; 
     }
 };
