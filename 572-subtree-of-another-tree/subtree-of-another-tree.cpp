@@ -12,9 +12,8 @@
 class Solution {
 public: 
     bool isIdentical(TreeNode* root, TreeNode* subRoot){
-        if(!root && subRoot) return false ; 
-        if(root && !subRoot) return false ; 
         if(!root && !subRoot) return true ; 
+        if(!root || !subRoot) return false ; 
         if(root->val != subRoot->val) return false ; 
 
         //if both root->val and subRoot->val are equal, then 
