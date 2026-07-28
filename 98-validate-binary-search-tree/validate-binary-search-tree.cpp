@@ -11,34 +11,15 @@
  */
 class Solution {
 public:
-
-    pair<long long,long long> isValid(TreeNode* root, bool &result){
-        if(!root) return {LLONG_MAX,LLONG_MIN} ; 
-
-        long long rootval = root->val ;
-        auto left = isValid(root->left , result) ; 
-        auto right = isValid(root->right , result) ; 
-
-        long long leftLargest = left.second ; 
-        long long rightSmallest = right.first ; 
-
-        if(leftLargest>=root->val || rightSmallest<=root->val){
-            result = false ; 
-            return {INT_MIN,INT_MAX} ;
-        }
-
-        long long minTillNow = left.first ; 
-        long long maxTillNow = right.second ; 
-        minTillNow = min(minTillNow,rootval) ; 
-        maxTillNow = max(maxTillNow,rootval) ;  
-        
-        return {minTillNow,maxTillNow} ; 
+    bool isValidBST(TreeNode* root,long long low, long long high){
+        if(!root) return true ; 
+        if(root->val<= low || root->val>=high ) return false ; 
+        bool left = isValidBST(root->left,low,root->val) ; 
+        bool right = isValidBST(root->right,root->val,high) ; 
+        return left&&right ;
     }
-
+//so the intuition goes like , every node on the left should be less than the root and every node on right should be greater, so why not send boundaries itself to the next root . 
     bool isValidBST(TreeNode* root) {
-        bool result = true ;
-        isValid(root,result) ; 
-        return result ; 
+        return isValidBST(root,LLONG_MIN,LLONG_MAX) ;
     }
-
 };
