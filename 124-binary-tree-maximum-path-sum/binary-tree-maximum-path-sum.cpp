@@ -12,30 +12,23 @@
 class Solution {
 public:
 
-    pair<int,int> getmaxsum(TreeNode* root){ //maxsum , cursum 
-        if(!root) return {-1000,0} ; 
-        pair<int,int> leftcall = getmaxsum(root->left) ; 
-        pair<int,int> rightcall = getmaxsum(root->right) ; 
+    int getmaxsum(TreeNode* root, int &maxpath){ //maxsum , cursum 
+        if(!root) return 0 ; 
 
-        int childmaxsum = max(leftcall.first,rightcall.first) ; 
+        int left = getmaxsum(root->left,maxpath) ; 
+        int right = getmaxsum(root->right,maxpath) ; 
 
-        int leftheightsum = leftcall.second ; 
-        int rightheightsum = rightcall.second ; 
-        int curheightsum = max(leftheightsum,rightheightsum) + root->val ; 
+        maxpath = max({root->val,left+right+root->val,maxpath,max(left,right)+root->val}) ; 
 
-        int a , b ; 
-        if(curheightsum<0){
-            b = 0 ; 
-            a = max(curheightsum,childmaxsum) ; 
-        }
-        else {
-            b = curheightsum ; 
-            a = max(childmaxsum,max(curheightsum+min(leftheightsum,rightheightsum),curheightsum)) ;
-        }
-        return {a,b} ; 
+        int retval = max(max(left,right)+root->val , root->val) ; 
+        if(retval<0) retval = 0 ; 
+
+        return retval ; 
     }
 
     int maxPathSum(TreeNode* root) {
-        return getmaxsum(root).first ; 
+        int ans = -1000 ; 
+        getmaxsum(root,ans) ; 
+        return ans ; 
     }
 };
