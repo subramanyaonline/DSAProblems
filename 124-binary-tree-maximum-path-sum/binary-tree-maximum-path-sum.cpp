@@ -15,15 +15,11 @@ public:
     int getmaxsum(TreeNode* root, int &maxpath){ //maxsum , cursum 
         if(!root) return 0 ; 
 
-        int left = getmaxsum(root->left,maxpath) ; 
-        int right = getmaxsum(root->right,maxpath) ; 
+        int left = max(0,getmaxsum(root->left,maxpath)) ; 
+        int right = max(0,getmaxsum(root->right,maxpath)) ; 
 
-        maxpath = max({root->val,left+right+root->val,maxpath,max(left,right)+root->val}) ; 
-
-        int retval = max(max(left,right)+root->val , root->val) ; 
-        if(retval<0) retval = 0 ; 
-
-        return retval ; 
+        maxpath = max(maxpath , left + right + root->val) ; 
+        return max(left,right) + root->val ; 
     }
 
     int maxPathSum(TreeNode* root) {
