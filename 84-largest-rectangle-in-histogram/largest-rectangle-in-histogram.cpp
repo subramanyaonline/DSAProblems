@@ -5,7 +5,6 @@ public:
         
         int size = heights.size() ; 
         vector<int> leftsmaller(size) ; 
-        vector<int> rightsmaller(size) ; 
         stack<int> st ; 
         int maxarea = 0 ; 
 
@@ -21,14 +20,15 @@ public:
         while(!st.empty()) st.pop(); 
 
         for(int i=size-1;i>=0;--i){
+            int rightsmaller ; 
             while(!st.empty() && heights[st.top()] >= heights[i]){
                 st.pop() ; 
             }
-            if(st.empty())  rightsmaller[i] = size ; 
-            else rightsmaller[i] = st.top() ; 
+            if(st.empty())  rightsmaller = size ; 
+            else rightsmaller = st.top() ; 
             st.push(i) ; 
 
-            int curarea = (rightsmaller[i]-leftsmaller[i]-1)*heights[i] ;
+            int curarea = (rightsmaller-leftsmaller[i]-1)*heights[i] ;
             maxarea = max(maxarea,curarea) ;  
         }
 
