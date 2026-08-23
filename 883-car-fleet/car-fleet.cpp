@@ -8,7 +8,8 @@ public:
 
         int size = position.size() ; 
         vector<pair<int,double>> vec(size) ; 
-        stack<double> st ; 
+        double prevFleetTime = 0 ; 
+        int count = 0 ; 
 
         for(int i=0;i<size;++i){
             double timerequired = (target-position[i])/(double)speed[i] ; 
@@ -24,14 +25,16 @@ public:
         }) ; 
 
         for(int i=0;i<size;++i){
-            double curCarsSpeed = vec[i].second ; 
+            double curCarsTimeToReachTarget = vec[i].second ; 
             //based on position, so the front behind cars can never cross their front ones. 
 
-            if(st.empty() || st.top() < curCarsSpeed){ //only push if behind cars never reach its front car fleet. 
-                st.push(curCarsSpeed) ; 
+            if(curCarsTimeToReachTarget <= prevFleetTime) continue ; 
+            else {
+                prevFleetTime = curCarsTimeToReachTarget ; 
+                count++ ; 
             }
         }
 
-        return st.size() ; 
+        return count ; 
     }
 };
