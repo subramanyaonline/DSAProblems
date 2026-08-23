@@ -15,8 +15,7 @@ public:
             
             else{
                 //curchar is closing 
-               if(st.empty()) return false ; 
-                if(close.contains(st.top())) return false ; 
+               if(st.empty()) return false ; // for testcases like ']'
 
                int curBracketNo = close[curchar] ; //barcket number 
                int topBracketNo = open[st.top()] ; 
@@ -25,7 +24,7 @@ public:
                else st.pop() ; 
             }
         }
-        if(st.empty()) return true ; 
+        if(st.empty()) return true ; //actually for test cases like '(['
         return false ; 
     }
 };
