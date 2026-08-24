@@ -10,13 +10,6 @@ public:
         vector<vector<int>> heights(m,vector<int>(n,0)) ; 
         int maxarea = 0 ;
 
-        for(int i=0,j=0; i<m ;++i){
-            if(matrix[i][j] == '1'){
-                heights[i][j] = 1  ; 
-                maxarea = 1 ; 
-            }
-        }
-
         for(int i=0,j=0; j<n ; ++j){
             if(matrix[i][j] == '1'){
                 heights[i][j] = 1 ; 
@@ -79,7 +72,7 @@ public:
                 maxarea = max(maxarea,curarea) ; 
             }
         }
-        
+
         return maxarea ; 
     }
 };
