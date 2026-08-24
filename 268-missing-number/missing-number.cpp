@@ -1,14 +1,16 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        int n = nums.size() ;
-        int sum = 0, totsum = 0;
-        for(int i=0;i<n;i++){
-            sum+=nums[i] ;
+        //0 to n -> sum is n*(n+1)/2 ; 
+
+        int observedsum = 0 ; 
+        int n = nums.size() ; 
+        for(int num : nums){
+            observedsum += num ; 
         }
-        totsum = n*(n+1)/2;
-        return totsum - sum ;
+
+        int expectedsum = (n*(n+1))/2 ; 
+
+        return expectedsum - observedsum ; 
     }
 };
-
-//many aproaches to solve this problem , using xor or using sum 
