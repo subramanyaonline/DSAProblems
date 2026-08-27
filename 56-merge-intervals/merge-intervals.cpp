@@ -15,7 +15,7 @@ public:
             if(end < curstart){
                 ans.push_back({start,end}) ; 
                 start = curstart ; 
-                end = max(end,curend) ; 
+                end = curend ; 
             }else{
                 end = max(end,curend) ; 
             }
