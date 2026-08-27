@@ -1,23 +1,18 @@
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end()) ; 
-
-        int removed = 0 ; 
-        int prevEnd = intervals[0][1] ; 
-
-        for(int i=1;i<intervals.size();++i){
-            int curstart = intervals[i][0] ; 
-            int curend = intervals[i][1] ; 
-
-            if(curstart<prevEnd){// intervals are overlapping 
-                removed++ ; 
-                prevEnd = min(curend,prevEnd) ; 
-            }else{
-                prevEnd = curend ; 
+        //applying greedy solution here of activity selection 
+        sort(intervals.begin(),intervals.end(),[](vector<int> &a,vector<int> &b)->bool{
+           return  a[1]<b[1];
+        });
+        int totalactivity=0 , currenttime=INT_MIN;
+        for(int i=0;i<intervals.size();i++){
+            if(intervals[i][0]>=currenttime){ //checking if the start index is less than current time
+                totalactivity++;
+                currenttime=intervals[i][1];
             }
         }
-
-        return removed ; 
+        //total activity gives the maximum number of activies possible without overlapping
+        return intervals.size()-totalactivity; //gives how many activities are overlapping
     }
 };
