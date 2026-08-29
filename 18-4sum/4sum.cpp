@@ -27,8 +27,11 @@ public:
                         l++; r-- ; 
                     }else if(cursum < localTarget){
                         l++; 
+                        while(l<r && nums[l]==nums[l-1]) l++; 
                     }else{
                         r--; 
+                        while(l<r && nums[r]==nums[r+1]) r-- ; 
+                        //this extra while loop removes the overhead of keeping a hashset for found ans temp arr. 
                     }
                 }
 
