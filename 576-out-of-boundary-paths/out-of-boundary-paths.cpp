@@ -20,7 +20,7 @@ public:
         for(int k = 1 ; k<=maxMove ; ++k){
             for(int i=1;i<=m;++i){ curr[i][0]=1; curr[i][n+1]=1; }
             for(int j=1;j<=n;++j){ curr[0][j]=1; curr[m+1][j]=1; }
-            
+
             for(int i=1; i<=m ; ++i){
                 for(int j=1;j<=n; ++j){
                     int moveup = prev[i-1][j] ; 
@@ -30,11 +30,11 @@ public:
 
                     curr[i][j] = 
                     ( (moveup + movedown)%modval + (moveleft + moveright)%modval )%modval ; 
-                    cout<<curr[i][j] << " " ;
+                    //cout<<curr[i][j] << " " ;
                 }
-                cout<<endl ; 
+                //cout<<endl ; 
             }
-            cout<<endl; 
+            //cout<<endl; 
             prev = curr ; 
         }
 
