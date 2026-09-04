@@ -1,32 +1,43 @@
 class Solution {
 public:
-    const int modval = 1e9 + 7 ; 
-    int recurse(int m , int n , int maxMove , int i , int j, vector<vector<vector<int>>> &memo){
-
-        if((i<0 || i>=m || j<0 || j>=n) && maxMove >= 0 ) return 1 ; 
-        else if((i<0 || i>=m || j<0 || j>=n) || maxMove < 0) return 0 ;
-
-        //cout<<i<<" "<<j <<" "<<maxMove<< endl ; 
-        if(memo[i][j][maxMove] != -1) return memo[i][j][maxMove] ; 
-
-        int down = recurse(m,n,maxMove-1,i+1,j,memo) % modval ; 
-        int up = recurse(m,n,maxMove-1,i-1,j,memo) % modval ; 
-        int right = recurse(m,n,maxMove-1,i,j+1,memo) % modval ; 
-        int left = recurse(m,n,maxMove-1,i,j-1,memo) % modval ; 
-
-        return memo[i][j][maxMove] = 
-        ( (down+up)%modval + (right+left)%modval ) % modval ; 
-     
-    }
-
-
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        vector<vector<vector<int>>> memo(m,
-            vector<vector<int>>(n,
-                vector<int>(maxMove+1,-1)
-            )
-        ); 
+        vector<vector<int>> prev(m+2,vector<int>(n+2,0)) ; 
+        vector<vector<int>> curr(m+2,vector<int>(n+2,0)) ; 
+        const int modval = 1e9 + 7 ; 
 
-        return recurse(m,n,maxMove,startRow,startColumn,memo) ; 
+        for(int i=1;i<=m;++i){
+            prev[i][0] = 1 ; 
+            prev[i][n+1] = 1; 
+        }
+
+        for(int j=1;j<=n;++j){
+            prev[0][j] = 1 ; 
+            prev[m+1][j] = 1 ; 
+        }
+
+        //currently the prev is for maxMoves = 0 . the base case . 
+
+        for(int k = 1 ; k<=maxMove ; ++k){
+            for(int i=1;i<=m;++i){ curr[i][0]=1; curr[i][n+1]=1; }
+            for(int j=1;j<=n;++j){ curr[0][j]=1; curr[m+1][j]=1; }
+            
+            for(int i=1; i<=m ; ++i){
+                for(int j=1;j<=n; ++j){
+                    int moveup = prev[i-1][j] ; 
+                    int movedown = prev[i+1][j] ; 
+                    int moveleft = prev[i][j-1] ; 
+                    int moveright = prev[i][j+1] ;
+
+                    curr[i][j] = 
+                    ( (moveup + movedown)%modval + (moveleft + moveright)%modval )%modval ; 
+                    cout<<curr[i][j] << " " ;
+                }
+                cout<<endl ; 
+            }
+            cout<<endl; 
+            prev = curr ; 
+        }
+
+        return prev[startRow+1][startColumn+1] ;
     }
 };
