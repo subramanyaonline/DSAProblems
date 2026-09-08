@@ -11,8 +11,6 @@ public:
 
         return memo[m][n] = cost ; 
 
-        //the min path doesnot include the current cell
-        //return min(cost,minFallingPathSum(matrix,m,n-1,memo)) ; 
     }
 
     int minFallingPathSum(vector<vector<int>>& matrix) {
