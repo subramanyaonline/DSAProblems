@@ -9,10 +9,10 @@ public:
         //teh min path includes current cell
         int cost = matrix[m-1][n-1] + min({minFallingPathSum(matrix,m-1,n-1,memo),minFallingPathSum(matrix,m-1,n,memo) , minFallingPathSum(matrix,m-1,n+1,memo)}) ; 
 
-        memo[m][n] = cost ; 
+        return memo[m][n] = cost ; 
 
         //the min path doesnot include the current cell
-        return min(cost,minFallingPathSum(matrix,m,n-1,memo)) ; 
+        //return min(cost,minFallingPathSum(matrix,m,n-1,memo)) ; 
     }
 
     int minFallingPathSum(vector<vector<int>>& matrix) {
