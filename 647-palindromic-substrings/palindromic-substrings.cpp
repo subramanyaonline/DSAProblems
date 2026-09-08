@@ -9,10 +9,9 @@ public:
         for(int i=0;i<n;i++){
 
             //each i index is considered as middle  
-            noOfSubstrings++ ; //considering substirng as a single element . 
 
             //considering the substirng size as odd. we got a clear middle point
-            int l = i-1 , r = i+1 ; 
+            int l = i , r = i ; 
             while(l>=0 && r<n && s[l]==s[r]){
                 noOfSubstrings++ ; 
                 l--; r++ ; 
