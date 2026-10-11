@@ -11,33 +11,31 @@
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head==nullptr || head->next==nullptr) return head ;
-        if(k==0) return head; 
-        ListNode* node = head ;
-        ListNode* tail = nullptr;
-        int size = 0 ;
-        while(node!=nullptr){
-            tail = node ;
-            node = node->next ;
-            size++;
+        if(!head || !head->next) return head ; 
+         
+        int size = 0 ; 
+        ListNode* tail ; 
+        ListNode* node = head ; 
+        while(node){
+            size++; 
+            tail = node ; 
+            node = node->next ; 
         }
-        k=k%size ;
-        if(k==0) return head; 
 
-        //i need to know the node where i should cut the list and attch at the first , that is size-k fromt the start. 
-        node=head; int count = 0 ;
-        while(node!=nullptr){
-            count++;
-            if(count < size-k)
-                node=node->next ;
-            else 
-                break ;
+        k = k%size ;  
+        if(k==0) return head ;
+        int jump = size-k ; 
+        node = head ; 
+        ListNode* prev ; 
+        for(int i=1;i<=jump;i++){
+            prev = node ; 
+            node = node->next ; 
         }
-        //now node is pointing to the end of the new list . 
-        ListNode* nextNode = node->next  ;
-        node->next = nullptr ;
-        tail->next = head ;
-        head = nextNode ;
-        return head ;
+
+        prev->next = nullptr ; 
+        tail->next = head ; 
+        head = node ; 
+
+        return head ; 
     }
 };
