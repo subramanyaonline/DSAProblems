@@ -23,6 +23,7 @@ public:
             int prevweight = pq.top()[0] ;                     
             int K = pq.top()[1] ;
             int from = pq.top()[2] ;  
+            if(from==n-1) break ; 
             pq.pop() ; 
 
             for(pair<int,int> p : graph[from]){
